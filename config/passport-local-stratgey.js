@@ -11,17 +11,18 @@ passport.use(new LocalStratgey({
     function (email, password, done) {
         //done is a function inbuit in passport takes two arguments
         //find the user and establish the identity
-        User.findOne({ email: email }, function (err, user) {
-            if (err) {
+        User.findOne({ email: email })
+        .catch((err) =>{
                 console.log('error in finding user --> passport');
                 return done(err);
-            }
+            })
+            .then((user)=>{
             if (!user || user.password != password) {
                 console.log('invalid username/password');
                 return done(null, false);
             }
             return done(null, user);
-        })
+        });
 
     }
 ));
@@ -35,13 +36,14 @@ passport.serializeUser(function (user, done) {
 //deserializing the user from the key in the cookies
 
 passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        if (err) {
-            console.log('error in finding user --> passport');
-            return done(err);
-        }
+    User.findById(id)
+    .catch((err)=>{
+        console.log('error in finding user --> passport');
+        return done(err);
+    })
+    .then((user)=>{
         return done(null, user);
-    });
+    })
 });
 
 module.exports=passport;
