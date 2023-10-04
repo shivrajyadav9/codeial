@@ -52,6 +52,7 @@ passport.checkAuthentication=function(req,res,next){
     //if the user is signed in (passport js puts isAuthenticated with the req)
     if(req.isAuthenticated()){
         next();
+        return;
     }
     //if the user is not signed in
 
