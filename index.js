@@ -35,6 +35,8 @@ app.use(session({
     name:'codeial',//name of the key
     //TODO change the secret before deployement in production mode
     secret:'blahSomething',//key to generate encripted kays
+    saveUninitialized:false,
+    resave:false,
     cookie:{
         maxAge:(1000*60*100)
     }
@@ -42,6 +44,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 app.use('/', require('./routes/index'));
 
