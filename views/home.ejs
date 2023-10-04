@@ -1,4 +1,7 @@
-<h1>Codeial <%=title%></h1>
+<main>
+<h1><%=title%>
+</h1>
+<link rel="stylesheet" href="/css/home.css">
 
 <section id="feed-posts">
     <h4>Posts</h4>
@@ -6,4 +9,22 @@
         <textarea name="content" cols="30" rows="3" placeholder="Type here...."></textarea>
         <input type="submit" value="Post">
     </form>
+    <div id="posts=list-container">
+        <ul>
+            <% for(post of posts) {%>
+                <li>
+                    <p>
+                    <%=post.content%>
+                        <br>
+                        <small class="about-post">
+                            <%=post.user.name%>
+                                <%=post.user.createdAt%>
+                        </small>
+                        </p>
+                </li>
+                
+                <%}%>
+        </ul>
+    </div>
 </section>
+</main>
