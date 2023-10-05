@@ -2,10 +2,17 @@ const User = require('../models/user');
 
 module.exports.profile = function (req, res) {
     // return res.end('<h1>User Profile</h1>');
+    User.findById(req.params.id)
+        .catch((err) => {
 
-    return res.render('user_profile', {
-        title: 'Codeial User Profile'
-    });
+        })
+        .then((user)=>{
+            return res.render('user_profile', {
+                title: 'User Profile',
+                profile_user:user
+            });
+
+        });
 }
 
 module.exports.signIn = function (req, res) {
