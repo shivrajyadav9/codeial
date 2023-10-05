@@ -15,6 +15,24 @@ module.exports.profile = function (req, res) {
         });
 }
 
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){
+        User.findByIdAndUpdate(req.params.id,{
+            name:req.body.name,
+            email:req.body.email
+        })
+        .catch((err)=>{
+
+        })
+        .then((user)=>{
+            return res.redirect('back');
+        })
+    }
+    else{
+        return res.status(404).send('Unauthorized');
+    }
+}
+
 module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {
         return res.redirect('/users/profile');
