@@ -12,6 +12,9 @@
 <body>
 
     <%-include('_header')%>
+    <% if(flash.success && flash.success.length>0){%> 
+        <h2><%=flash.success%></h2>
+        <%}%>
         <%-body%>
             <%-include('_footer')%>
 
