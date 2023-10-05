@@ -1,9 +1,9 @@
 <main>
-    <!-- <h1>
-        <%=title%>
-    </h1> -->
     <link rel="stylesheet" href="/css/home.css">
-
+<div id="home-container">
+    <section id="quick-links">
+        <h3>Quick Links</h3>
+    </section>
     <section id="feed-posts">
         <h3>Posts</h3>
         <% if(locals.user){ %>
@@ -34,4 +34,5 @@
                 <% } %>
         </ul>
     </section>
+    </div>
 </main>

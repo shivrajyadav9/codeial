@@ -2,50 +2,36 @@ const Comment = require('../models/comment');
 const Post = require('../models/post');
 
 
-module.exports.create = function (req, res) {
-    Post.findById(req.body.post)
-        .catch((err) => {
-
-        })
-        .then((post) => {
-            Comment.create({
-                content: req.body.content,
-                post: req.body.post,
-                user: req.user._id
-            })
-                .catch((err) => {
-
-                })
-                .then((comment) => {
-                    post.comments.push(comment);
-                    post.save();
-                    res.redirect('/');
-                });
+module.exports.create = async function (req, res) {
+    try {
+        const post = await Post.findById(req.body.post)
+        const comment = await Comment.create({
+            content: req.body.content,
+            post: req.body.post,
+            user: req.user._id
         });
+        post.comments.push(comment);
+        post.save();
+        res.redirect('/');
+    } catch (err) {
+        console.log('Error: ', err);
+        return;
+    }
 }
 
-module.exports.destroy = function (req, res) {
-
-    Comment.findById(req.params.id)
-        .catch((err) => {
-            console.log('error in finding comment');
-        })
-
-        .then((comment) => {
-            if (comment.user == req.user.id) {
-                let postId = comment.post;
-                Comment.deleteOne({
-                    '_id': req.params.id
-                })
-                    .catch((err) => {
-                        console.log('error in deleting comment')
-                    });
-
-                Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } })
-                    .catch((err) => {
-                        console.log('error in updating comments array in post')
-                    });
-            }
-            return res.redirect('back');
-        });
+module.exports.destroy = async function (req, res) {
+    try {
+        let comment = await Comment.findById(req.params.id)
+        if (comment.user == req.user.id) {
+            let postId = comment.post;
+            await Comment.deleteOne({
+                '_id': req.params.id
+            });
+            await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+        }
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error: ', err);
+        return;
     }
+}

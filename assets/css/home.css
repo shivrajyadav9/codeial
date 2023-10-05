@@ -3,4 +3,21 @@
   font-size: small; }
 
 main {
-  margin-left: 50px; }
+  margin-left: 50px;
+  height: 100%; }
+
+#home-container {
+  height: 100%;
+  display: flex; }
+  #home-container #quick-links {
+    width: 25%;
+    padding: 10px; }
+  #home-container #feed-posts {
+    width: 50%;
+    padding: 10px;
+    border-left: 1px solid lightgray; }
+  #home-container #user-friends {
+    width: 25%;
+    padding: 10px;
+    border-left: 1px solid lightgray;
+    height: 100%; }
