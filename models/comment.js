@@ -15,7 +15,7 @@ const commentSchema=new mongoose.Schema({
         ref:'Post'
     }
 },{
-    timeseries:true
+    timestamps:true
 });
 
 const Comment=mongoose.model('Comment',commentSchema);
