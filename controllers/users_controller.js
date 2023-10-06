@@ -21,13 +21,16 @@ module.exports.update = async function (req, res) {
                 name: req.body.name,
                 email: req.body.email
             })
+            req.flash('success', 'Profile updated');
             return res.redirect('back')
         }
         else {
+            req.flash('error', 'You can not update this profile !!');
             return res.status(404).send('Unauthorized');
         }
     } catch (err) {
-        console.log('Error', err);
+        req.flash('error', err);
+        // console.log('Error', err);
         return;
     }
 }
@@ -53,17 +56,18 @@ module.exports.signUp = function (req, res) {
 //get the sign up data
 module.exports.create = async function (req, res) {
     if (req.body.password != req.body.confirm_password) {
-        console.log('password != confirm password');
+        req.flash('error', 'Password does not match');
         return res.redirect('back');
     }
     try {
         const user = await User.findOne({ email: req.body.email })
         if (!user) {
             await User.create(req.body)
-
+            req.flash('success', 'Account created successfully !!');
             return res.redirect('/users/sign-in');
 
         } else {
+            req.flash('error', 'Account already exists');
             return res.redirect('back');
         }
     } catch (err) {
@@ -74,17 +78,20 @@ module.exports.create = async function (req, res) {
 
 //sign in and create a session for the user
 module.exports.createSession = function (req, res) {
-    req.flash('success','Logged in successfully!!');
+    req.flash('success', 'Logged in successfully!!');
     return res.redirect('/');
 }
 
 module.exports.destroySession = function (req, res) {
-    req.logOut(function (err) {
+    req.logOut((err) => {
         if (err) {
-            console.log('error in signing out');
-            return;
+            req.flash('error', 'Could not log out');
+            console.log('Error', err);
+            return res.redirect('/');
+        } else {
+            req.flash('success', 'You have logged out !!');
+            return res.redirect('/');
         }
     });
-    req.flash('success','You have logged out !!');
-    return res.redirect('/');
+
 }

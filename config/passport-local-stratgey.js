@@ -6,19 +6,22 @@ const User = require('../models/user');
 
 //authentication using passport
 passport.use(new LocalStratgey({
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback:true
 },
-    function (email, password, done) {
+    function (req,email, password, done) {
         //done is a function inbuit in passport takes two arguments
         //find the user and establish the identity
         User.findOne({ email: email })
         .catch((err) =>{
-                console.log('error in finding user --> passport');
+                // console.log('error in finding user --> passport');
+                req.flash('erroe',err);
                 return done(err);
             })
             .then((user)=>{
             if (!user || user.password != password) {
-                console.log('invalid username/password');
+                req.flash('error','Invalid username/password')
+                // console.log('invalid username/password');
                 return done(null, false);
             }
             return done(null, user);
