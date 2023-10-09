@@ -1,4 +1,11 @@
 {
+
+//TODO 
+//get user information without refresh
+//create and delete comments
+//display NOTY notifications
+
+
     //method to submit the form data for new post using ajax
     let createPost = function () {
         let newPostForm = $('#new-post-form');
@@ -10,13 +17,14 @@
                 data: newPostForm.serialize(),
                 success: function (data) {
                     let newPost = newPostDom(data.data.post);
-                    // console.log(newPost);
+                    console.log(data.message);
                     $('#posts-list-container>ul').prepend(newPost);
+                    deletePost($(' .delete-post-button')[0]);
                 },
-                error: function (err) {
-                    console.log(err.responseText);
+                error: function (error) {
+                    console.log(error.responseText);
                 }
-            })
+            });
         });
     }
 
@@ -28,7 +36,7 @@
     
             ${post.content}
                     <small>
-                        <a class="delete-post-button" href="/posts/destroy/${post.id}">delete</a>
+                        <a class="delete-post-button" href="/posts/destroy/${post._id}">delete</a>
                     </small>
                 
                         <br>
@@ -56,5 +64,30 @@
     };
 
 
+    //method to delete a post from dom
+
+    let deletePost = function (deleteLink) {
+
+        $(deleteLink).click(function (e) {
+            // console.log(deleteLink);
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function (data) {
+                    console.log(data.message);
+                    $(`#post-${data.data.post_id}`).remove();
+                },
+                error: function (error) {
+                    console.log('ERROR: ' + error.responseText);
+                }
+            })
+        })
+    }
+
     createPost();
+    for (button of $('.delete-post-button')) {
+        deletePost(button);
+    }
 }
