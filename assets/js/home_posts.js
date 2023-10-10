@@ -48,17 +48,18 @@
     let newPostDom = function (post) {
         return $(`<li id="post-${post._id}">
         <p>
-    
+        <small class="about-post">
+        <span id="post-user-name">
+        ${post.user.name}
+        </span>
+            ${post.createdAt}
+        </small>
+        <small>
+            <a class="delete-post-button" href="/posts/destroy/${post._id}">delete</a>
+         </small>
+         <br>
+         <br>
             ${post.content}
-                    <small>
-                        <a class="delete-post-button" href="/posts/destroy/${post._id}">delete</a>
-                    </small>
-                
-                        <br>
-                        <small class="about-post">
-                            ${post.user.name}
-                                ${post.createdAt}
-                        </small>
         </p>
         <div class="post-comments">
             
@@ -78,7 +79,7 @@
     </li>`)
     };
 
-    
+
     createPost();
     for (button of $('.delete-post-button')) {
         deletePost(button);

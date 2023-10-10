@@ -9,24 +9,32 @@ main {
 }
 
 #home-container {
+    color: darkslategray;
+    position:relative;
     height: 100%;
     display: flex;
 
     #quick-links {
+        // position: fixed;
         width: 25%;
         padding: 10px
     }
 
     #feed-posts {
         width: 50%;
-        padding: 10px;
+        padding:10px 50px;
         border-left: 1px solid lightgray;
+        border-right: 1px solid lightgray;
     }
 
     #user-friends {
         width: 25%;
         padding: 10px;
-        border-left: 1px solid lightgray;
+        // border-left: 1px solid lightgray;
         height: 100%;
     }
+}
+
+#post-user-name{
+    color:rgb(159, 37, 180);
 }
