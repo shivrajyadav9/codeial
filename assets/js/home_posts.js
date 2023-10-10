@@ -1,11 +1,4 @@
 {
-
-//TODO 
-//get user information without refresh
-//create and delete comments
-//display NOTY notifications
-
-
     //method to submit the form data for new post using ajax
     let createPost = function () {
         let newPostForm = $('#new-post-form');
@@ -26,6 +19,28 @@
                 }
             });
         });
+    }
+
+    //method to delete a post from dom
+
+    let deletePost = function (deleteLink) {
+
+        $(deleteLink).click(function (e) {
+            // console.log(deleteLink);
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function (data) {
+                    console.log(data.message);
+                    $(`#post-${data.data.post_id}`).remove();
+                },
+                error: function (error) {
+                    console.log('ERROR: ' + error.responseText);
+                }
+            })
+        })
     }
 
     //method to create a post in dom 
@@ -63,31 +78,10 @@
     </li>`)
     };
 
-
-    //method to delete a post from dom
-
-    let deletePost = function (deleteLink) {
-
-        $(deleteLink).click(function (e) {
-            // console.log(deleteLink);
-            e.preventDefault();
-
-            $.ajax({
-                type: 'get',
-                url: $(deleteLink).prop('href'),
-                success: function (data) {
-                    console.log(data.message);
-                    $(`#post-${data.data.post_id}`).remove();
-                },
-                error: function (error) {
-                    console.log('ERROR: ' + error.responseText);
-                }
-            })
-        })
-    }
-
+    
     createPost();
     for (button of $('.delete-post-button')) {
         deletePost(button);
     }
+
 }

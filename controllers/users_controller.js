@@ -17,17 +17,31 @@ module.exports.profile = async function (req, res) {
 module.exports.update = async function (req, res) {
     try {
         if (req.user.id == req.params.id) {
-            await User.findByIdAndUpdate(req.params.id, {
-                name: req.body.name,
-                email: req.body.email
-            })
-            req.flash('success', 'Profile updated');
-            return res.redirect('back')
+            let user = await User.findById(req.params.id);
+
+            User.uploadedAvatar(req, res, function (err) {
+                if (err) { console.log('******Multer Error ', err); return ; }
+
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if (req.file) {
+                    //this is saving the path of the uploaded file
+                    console.log(req.file);
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+
+                req.flash('success', 'Profile updated');
+                return res.redirect('back');
+            });
         }
+
         else {
             req.flash('error', 'You can not update this profile !!');
             return res.status(404).send('Unauthorized');
         }
+
     } catch (err) {
         req.flash('error', err);
         // console.log('Error', err);
