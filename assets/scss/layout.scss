@@ -1,4 +1,51 @@
-// body {
-//     // margin: 0;
-//     // text-align: center;
-// }
+body {
+    // margin: 0;
+    // text-align: center;
+    background-color: rgb(232, 232, 232);
+    font-family: sans-serif;
+    // color:rgb(109, 106, 98)
+}
+
+a {
+    color: rgb(129, 11, 220);
+    text-decoration: none;
+}
+
+input {
+    background-color: rgb(232, 232, 232);
+    border: 1px solid darkgray;
+    border-radius: 30px;
+    padding: 5px;
+    color: rgb(109, 106, 98);
+}
+
+textarea {
+    background-color: rgb(232, 232, 232);
+    border: 1px solid darkgray;
+    border-radius: 50px;
+    padding:5px 20px;
+    width: 80%;
+}
+
+#user-info {
+    input {
+        display: block
+    }
+
+    input.button {
+        border: 1px solid darkgray;
+        border-radius: 50px;
+        padding: 10px 20px;
+        background-color: rgb(228, 60, 247);
+        color: aliceblue;
+
+    }
+}
+
+form input.button {
+    border: 1px solid darkgray;
+    border-radius: 50px;
+    padding: 5px 20px;
+    background-color: rgb(228, 60, 247);
+    color: aliceblue;
+}

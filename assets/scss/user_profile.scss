@@ -1,3 +1,81 @@
-body {
-    background-color: lightblue;
+#profile-page {
+    // background-color: lightblue;
+    display: flex;
+    height: 100%;
+
+    #user-info{
+        width:25%;
+        padding:10px;
+    }
+    #user-posts{
+        padding: 10px 50px;
+        width:50%;
+        border-left: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+    }
+    #user-friends{
+        width: 25%;
+        padding:10px;
+        height: 100%;
+    }
 }
+
+input {
+    // display: block;
+    padding:5px;
+    margin: 10px 0;
+    .button{
+        padding: 0;
+    }
+}
+
+#profile-picture-container {
+
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin:50px auto;
+
+    #profile-picture {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        margin: auto;
+    }
+}
+
+#user-name{
+    margin:0 auto;
+    margin-top: -30px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-family: sans-serif;
+    color: rgb(57, 59, 59);
+}
+
+#input-profile-picture{
+    border: 0;
+
+}
+
+#post-user-name {
+    color: rgb(159, 37, 180);
+}
+
+.post-user-photo {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+
+    img {
+        // size: cover;
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+        margin-bottom: -10px;
+    }
+}
+

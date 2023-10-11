@@ -1,5 +1,5 @@
 .about-post {
-    color: gray;
+    color: rgb(118, 118, 118);
     font-size: small;
 }
 
@@ -9,8 +9,8 @@ main {
 }
 
 #home-container {
-    color: darkslategray;
-    position:relative;
+    // color: rgb(188, 188, 188);
+    // position: relative;
     height: 100%;
     display: flex;
 
@@ -22,9 +22,13 @@ main {
 
     #feed-posts {
         width: 50%;
-        padding:10px 50px;
+        padding: 10px 50px;
         border-left: 1px solid lightgray;
         border-right: 1px solid lightgray;
+
+        ul {
+            list-style: none;
+        }
     }
 
     #user-friends {
@@ -35,6 +39,22 @@ main {
     }
 }
 
-#post-user-name{
-    color:rgb(159, 37, 180);
+#post-user-name {
+    color: rgb(159, 37, 180);
+}
+
+.post-user-photo {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+
+    img {
+        // size: cover;
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+        margin-bottom: -10px;
+    }
 }

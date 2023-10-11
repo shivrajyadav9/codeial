@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Post=require('../models/post');
 const fs = require('fs');
 const path = require('path');
 
@@ -6,9 +7,21 @@ module.exports.profile = async function (req, res) {
     // return res.end('<h1>User Profile</h1>');
     try {
         const user = await User.findById(req.params.id)
+        const users=await User.find({});
+        let user_posts = await Post.find({user:req.params.id})
+        .sort('-createdAt')
+        .populate('user')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                }
+            });
         return res.render('user_profile', {
             title: 'User Profile',
-            profile_user: user
+            profile_user: user,
+            all_users:users,
+            user_posts:user_posts
         });
     } catch (err) {
         console.log('Error', err);

@@ -1,5 +1,5 @@
 .about-post {
-  color: gray;
+  color: #767676;
   font-size: small; }
 
 main {
@@ -7,8 +7,6 @@ main {
   height: 100%; }
 
 #home-container {
-  color: darkslategray;
-  position: relative;
   height: 100%;
   display: flex; }
   #home-container #quick-links {
@@ -19,6 +17,8 @@ main {
     padding: 10px 50px;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray; }
+    #home-container #feed-posts ul {
+      list-style: none; }
   #home-container #user-friends {
     width: 25%;
     padding: 10px;
@@ -26,3 +26,15 @@ main {
 
 #post-user-name {
   color: #9f25b4; }
+
+.post-user-photo {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 5px; }
+  .post-user-photo img {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    margin-bottom: -10px; }
