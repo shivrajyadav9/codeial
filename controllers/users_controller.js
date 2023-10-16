@@ -1,16 +1,19 @@
 const User = require('../models/user');
-const Post=require('../models/post');
+const Post = require('../models/post');
 const fs = require('fs');
 const path = require('path');
+const ResetPasswordToken = require('../models/reset_password_token');
+const crypto = require('crypto');
+const usersMailer = require('../mailers/users_mailer');
 
 module.exports.profile = async function (req, res) {
     // return res.end('<h1>User Profile</h1>');
     try {
         const user = await User.findById(req.params.id)
-        const users=await User.find({});
-        let user_posts = await Post.find({user:req.params.id})
-        .sort('-createdAt')
-        .populate('user')
+        const users = await User.find({});
+        let user_posts = await Post.find({ user: req.params.id })
+            .sort('-createdAt')
+            .populate('user')
             .populate({
                 path: 'comments',
                 populate: {
@@ -20,8 +23,8 @@ module.exports.profile = async function (req, res) {
         return res.render('user_profile', {
             title: 'User Profile',
             profile_user: user,
-            all_users:users,
-            user_posts:user_posts
+            all_users: users,
+            user_posts: user_posts
         });
     } catch (err) {
         console.log('Error', err);
@@ -70,7 +73,7 @@ module.exports.update = async function (req, res) {
 
 module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {
-        return res.redirect('/users/profile');
+        return res.redirect(`/users/profile/${req.user.id}`);
     }
 
     return res.render('user_sign_in', {
@@ -78,9 +81,70 @@ module.exports.signIn = function (req, res) {
     });
 }
 
+module.exports.forgotPassword = function (req, res) {
+    return res.render('forgot_password', {
+        title: 'Forgot Password?'
+    });
+}
+
+module.exports.createForgotPasswordToken = async function (req, res) {
+    try {
+        let user = await User.findOne({ email: req.body.email });
+        // console.log(req.body);
+        if (!user) {
+            // console.log('user not found');
+            res.redirect('back');
+        }
+        else {
+            let token = await ResetPasswordToken.findOne({ user: user._id });
+            if (token) {
+                await ResetPasswordToken.findOneAndUpdate({ token: token.token }, { isValid: true });
+            }
+            else {
+                await ResetPasswordToken.create({
+                    user: user._id,
+                    token: crypto.randomBytes(20).toString('hex'),
+                    isValid: true
+                });
+            }
+            let resetPasswordToken = await ResetPasswordToken.findOne({ user: user._id }).populate('user');
+            usersMailer.resetPassword(resetPasswordToken);
+            return res.redirect('/users/sign-in')
+        }
+
+    } catch (err) {
+        console.log('Error in creating forgot password token ');
+    }
+};
+
+module.exports.resetPassword = function (req, res) {
+    res.cookie('resetPasswordToken', req.params.token);
+    return res.render('new_password', {
+        title: 'New Password',
+        resetPasswordToken: req.params.token
+    })
+}
+
+module.exports.newPassword = async function (req, res) {
+    try {
+        let token = await ResetPasswordToken.findOne({ token: req.cookies.resetPasswordToken });
+        if ( token.isValid && req.body.password === req.body.confirm_password) {
+            await User.findByIdAndUpdate({ _id: token.user }, { password: req.body.password });
+            await ResetPasswordToken.findOneAndUpdate({token: req.cookies.resetPasswordToken},{isValid:false});
+
+            res.clearCookie('resetPasswordToken');
+            return res.redirect('/users/sign-in');
+        }
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error in updating password');
+    }
+}
+
+
 module.exports.signUp = function (req, res) {
     if (req.isAuthenticated()) {
-        return res.redirect('/users/profile');
+        return res.redirect(`/users/profile/${req.user.id}`);
     }
     return res.render('user_sign_up', {
         title: 'Codeial | Sign Up'
