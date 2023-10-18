@@ -15,10 +15,11 @@ passport.use(new LocalStratgey({
         User.findOne({ email: email })
         .catch((err) =>{
                 // console.log('error in finding user --> passport');
-                req.flash('erroe',err);
+                req.flash('error',err);
                 return done(err);
             })
             .then((user)=>{
+                console.log(user.password , password);
             if (!user || user.password != password) {
                 req.flash('error','Invalid username/password')
                 // console.log('invalid username/password');

@@ -7,14 +7,24 @@ const User = require('../models/user');
 module.exports.home = async function (req, res) {
     try {
         let posts = await Post.find({})
-        .sort('-createdAt')
-        .populate('user')
+            .sort('-createdAt')
+            .populate({
+                path: 'user',
+                select: '-password'
+            })
             .populate({
                 path: 'comments',
-                populate: {
-                    path: 'user'
-                }
-            });
+                populate: [{
+                    path: 'user',
+                    select: '-password'
+                }, {
+                    path: 'likes',
+                    select: '-__v'
+                }]
+            }).populate('likes');
+
+        console.log(posts[1].comments[0].likes);
+
         let users = await User.find({});
 
         return res.render('home', {

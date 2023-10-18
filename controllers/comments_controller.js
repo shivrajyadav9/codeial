@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const Like=require('../models/like');
 const commentsMailer = require('../mailers/comments_mailer');
 
 const commentEmailWorker = require('../workers/comment_email_worker');
@@ -43,17 +44,22 @@ module.exports.create = async function (req, res) {
 module.exports.destroy = async function (req, res) {
     try {
         let comment = await Comment.findById(req.params.id)
+
         if (comment.user == req.user.id) {
             let postId = comment.post;
-            await Comment.deleteOne({
-                '_id': req.params.id
-            });
+
+            await Comment.findByIdAndDelete(req.params.id);
             await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+            await Like.deleteMany({likable:comment._id,onModel:'Comment'});
+
             req.flash('success', 'Comment deleted successfully!!');
             return res.redirect('back');
         }
+
         req.flash('error', 'You can not delete this comment!!');
         return res.redirect('back');
+
     } catch (err) {
         console.log('Error: ', err);
         return;
