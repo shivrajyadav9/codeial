@@ -1,5 +1,5 @@
 # Doubts
-1) user which is signed in is not comming to the partials in views,for now i am passing the 'current_user' seperately while rendring the home.ejs file from home controller and using the 'current_user' in '_post.ejs' and '_comment.ejs'.
+1)  SOLVED : user which is signed in is not comming to the partials in views,for now i am passing the 'current_user' seperately while rendring the home.ejs file from home controller and using the 'current_user' in '_post.ejs' and '_comment.ejs'.
 
 
 TODO :-
