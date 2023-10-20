@@ -1,9 +1,14 @@
 body {
-    // margin: 0;
+    margin: 0 0 0 10px;
     // text-align: center;
     background-color: rgb(232, 232, 232);
     font-family: sans-serif;
-    // color:rgb(109, 106, 98)
+    .post-content{
+        color:rgb(67, 67, 66)
+    }
+    .comment-content{
+        color:rgb(67, 67, 66)
+    }
 }
 
 a {

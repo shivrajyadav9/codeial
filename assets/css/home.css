@@ -7,28 +7,36 @@ main {
   height: 100%; }
 
 #home-container {
+  margin-top: -1%;
   height: 100%;
   display: flex; }
   #home-container #quick-links-and-all-users {
-    width: 25%;
+    width: 23%;
+    flex-shrink: 1;
     padding: 10px; }
-    #home-container #quick-links-and-all-users #quick-links {
-      min-height: 30vh; }
+    #home-container #quick-links-and-all-users #left-flex {
+      position: fixed; }
+      #home-container #quick-links-and-all-users #left-flex #quick-links {
+        min-height: 30vh; }
+      #home-container #quick-links-and-all-users #left-flex #all-users {
+        width: 100%;
+        padding: 10px;
+        height: 100%; }
   #home-container #feed-posts {
-    width: 50%;
+    width: 46%;
     padding: 10px 50px;
+    flex-shrink: 2;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray; }
     #home-container #feed-posts ul {
       list-style: none; }
-  #home-container #all-users {
-    width: 100%;
-    padding: 10px;
-    height: 100%; }
   #home-container #friends-container {
-    width: 25%;
     padding: 10px;
-    height: 100%; }
+    height: 100%;
+    flex-shrink: 1; }
+    #home-container #friends-container #friends {
+      position: fixed;
+      width: 23%; }
 
 #post-user-name {
   color: #9f25b4; }

@@ -1,6 +1,11 @@
 body {
+  margin: 0 0 0 10px;
   background-color: #e8e8e8;
   font-family: sans-serif; }
+  body .post-content {
+    color: #434342; }
+  body .comment-content {
+    color: #434342; }
 
 a {
   color: #810bdc;

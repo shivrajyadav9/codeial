@@ -26,7 +26,7 @@ module.exports.profile = async function (req, res) {
             let checkFriendship2=await Friendship.findOne({from_user:req.user.id,to_user:req.params.id});
 
         return res.render('user_profile', {
-            title: 'User Profile',
+            title: `${user.name} Profile`,
             profile_user: user,
             all_users: users,
             user_posts: user_posts,

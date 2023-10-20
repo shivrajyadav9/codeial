@@ -3,23 +3,25 @@
     <div id="home-container">
 
         <section id="quick-links-and-all-users">
-            <section id="quick-links">
-                <h3>Quick links</h3>
-            </section>
+            <div id="left-flex">
+                <section id="quick-links">
+                    <h3>Quick links</h3>
+                </section>
 
-            <section id="all-users">
-                <h3>All users</h3>
-                <ul>
-                    <% for( let user of all_users){ %>
-                        <li>
-                            <a href="/users/profile/<%=user.id%>">
-                                <%=user.name%>
-                            </a>
-                        </li>
-                        <% } %>
+                <section id="all-users">
+                    <h3>All users</h3>
+                    <ul>
+                        <% for( let user of all_users){ %>
+                            <li>
+                                <a href="/users/profile/<%=user.id%>">
+                                    <%=user.name%>
+                                </a>
+                            </li>
+                            <% } %>
 
-                </ul>
-            </section>
+                    </ul>
+                </section>
+            </div>
         </section>
         <section id="feed-posts">
             <h3>Posts</h3>
@@ -46,16 +48,22 @@
                     </div>
         </section>
         <section id="friends-container">
-            <h3>Friends</h3>
-            <ul>
-                <% for(let friend of user_friends){ %>
-                    <li>
-                        <a href="/users/profile/<%=friend.id%>">
-                            <%=friend.name%>
-                        </a>
-                    </li>
-                    <% } %>
-            </ul>
+            <div id="friends">
+                <h3>Friends</h3>
+                <% if(locals.user){%>
+                    <ul>
+                        <% for(let friend of user_friends){ %>
+                            <li>
+                                <a href="/users/profile/<%=friend.id%>">
+                                    <%=friend.name%>
+                                </a>
+                            </li>
+                            <% } %>
+                    </ul>
+                    <% }else{%>
+                        Sign in to see your friends
+                        <%}%>
+            </div>
         </section>
 
 

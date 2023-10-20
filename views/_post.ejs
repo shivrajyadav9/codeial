@@ -16,10 +16,13 @@
                 <a class="delete-post-button button" href="/posts/destroy/<%=post.id%>">Delete</a>
                 <%}%>
         </span>
-        <br><br>
-        <%=post.content%>
+        <br>
+        <p class="post-content">
 
-            <br>
+        <%=post.content%>
+    </p>
+
+            
             <small>
                 <%if(locals.user){%>
                     <a class="toggle-like-button" data-likes="<%=post.likes.length %>"

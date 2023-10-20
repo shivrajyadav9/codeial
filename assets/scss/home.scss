@@ -10,24 +10,36 @@ main {
 
 #home-container {
     // color: rgb(188, 188, 188);
-    // position: relative;
+    margin-top: -1%;
     height: 100%;
     display: flex;
 
     #quick-links-and-all-users {
         // position: fixed;
-        width: 25%;
-
+        width: 23%;
+        flex-shrink: 1;
         padding: 10px;
 
-        #quick-links {
-            min-height: 30vh;
+        #left-flex {
+            position: fixed;
+
+            #quick-links {
+                min-height: 30vh;
+            }
+
+            #all-users {
+                width: 100%;
+                padding: 10px;
+                height: 100%;
+            }
         }
     }
 
     #feed-posts {
-        width: 50%;
+        // margin-left: 22%;
+        width: 46%;
         padding: 10px 50px;
+        flex-shrink: 2;
         border-left: 1px solid lightgray;
         border-right: 1px solid lightgray;
 
@@ -36,18 +48,14 @@ main {
         }
     }
 
-    #all-users {
-        width: 100%;
-        padding: 10px;
-        // border-left: 1px solid lightgray;
-        height: 100%;
-    }
-
     #friends-container {
-        width: 25%;
+        #friends{
+            position: fixed;
+            width:23%
+        }
         padding: 10px;
-        // border-left: 1px solid lightgray;
         height: 100%;
+        flex-shrink: 1;
     }
 }
 

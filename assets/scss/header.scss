@@ -1,9 +1,34 @@
-#nav-list {
-    list-style: none;
+body{
+    margin:0;
+    margin-top:3%;
+}
 
-    li {
-        display: inline-block;
-         margin-right: 50px;
-         margin-left:-20px;
+#nav-bar {
+    // height: 5%;
+    width: 100%;
+    background-color: rgb(159, 37, 180);
+    position: fixed;
+    top:0;
+    padding:10px;
+    display: flex;
+    a{
+        color:aliceblue;
     }
+    #home{
+        margin-left:2%;
+        width:85%
+        
+    }
+    #my-profile-sign-out{
+        display:flex;
+        justify-content: flex-end;
+
+        .my-profile-sign-in{
+            width:100px;
+        }
+        .sigh-out-sign-up{
+           width:100px;
+        }
+    }
+    
 }
