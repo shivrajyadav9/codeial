@@ -1,8 +1,24 @@
 <main>
     <link rel="stylesheet" href="/css/home.css">
     <div id="home-container">
-        <section id="quick-links">
-            <h3>Quick Links</h3>
+
+        <section id="quick-links-and-all-users">
+            <section id="quick-links">
+                <h3>Quick links</h3>
+            </section>
+
+            <section id="all-users">
+                <h3>All users</h3>
+                <ul>
+                    <% for(user of all_users){ %>
+                        <li>
+                            <a href="/users/profile/<%=user.id%>">
+                                <%=user.name%>
+                            </a>
+                        </li>
+                        <% } %>
+                </ul>
+            </section>
         </section>
         <section id="feed-posts">
             <h3>Posts</h3>
@@ -25,25 +41,27 @@
                         </ul>
                     </div>
         </section>
-        <section id="user-friends">
+        <section id="friends-container">
             <h3>Friends</h3>
             <ul>
-                <% for(user of all_users){ %>
+                <% for(friend of user_friends){ %>
                     <li>
-                        <a href="/users/profile/<%=user.id%>">
-                            <%=user.name%>
+                        <a href="/users/profile/<%=friend.id%>">
+                            <%=friend.name%>
                         </a>
                     </li>
                     <% } %>
             </ul>
         </section>
+
+
     </div>
 </main>
 <script src="/js/home_posts.js"></script>
 <script src="/js/toggle_likes.js"></script>
 <script>
-    $('.toggle-like-button').each(function(){
-        let self=this;
-        let toggleLike=new ToggleLike(self);
+    $('.toggle-like-button').each(function () {
+        let self = this;
+        let toggleLike = new ToggleLike(self);
     });
 </script>

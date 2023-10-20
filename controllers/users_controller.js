@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Friendship=require('../models/friendship');
 const fs = require('fs');
 const path = require('path');
 const ResetPasswordToken = require('../models/reset_password_token');
@@ -9,7 +10,7 @@ const usersMailer = require('../mailers/users_mailer');
 module.exports.profile = async function (req, res) {
     // return res.end('<h1>User Profile</h1>');
     try {
-        const user = await User.findById(req.params.id)
+        const user = await User.findById(req.params.id).populate('friendships');
         const users = await User.find({});
         let user_posts = await Post.find({ user: req.params.id })
             .sort('-createdAt')
@@ -20,11 +21,16 @@ module.exports.profile = async function (req, res) {
                     path: 'user'
                 }
             });
+
+            let checkFriendship1=await Friendship.findOne({from_user:req.params.id,to_user:req.user.id});
+            let checkFriendship2=await Friendship.findOne({from_user:req.user.id,to_user:req.params.id});
+
         return res.render('user_profile', {
             title: 'User Profile',
             profile_user: user,
             all_users: users,
-            user_posts: user_posts
+            user_posts: user_posts,
+            isFriend:checkFriendship1||checkFriendship2
         });
     } catch (err) {
         console.log('Error', err);
@@ -70,6 +76,7 @@ module.exports.update = async function (req, res) {
         return;
     }
 }
+
 
 module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {

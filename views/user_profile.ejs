@@ -23,10 +23,14 @@
 
             <%} else{%>
                 <p>
-                    <!-- <%=profile_user.name %> -->
-                </p>
-                <p>
-                    <!-- <%=profile_user.email %> -->
+                    <a href="/friendships/toggle/?from_user=<%=locals.user.id%>&to_user=<%=profile_user.id%>"
+                        class="buttton">
+                        <% if(!isFriend){%>
+                            Add Friend
+                            <%} else{%>
+                                Remove Friend
+                                <%}%>
+                    </a>
                 </p>
 
                 <%}%>
@@ -46,7 +50,7 @@
     </section>
 
     <section id="user-friends">
-        <h3>Friends</h3>
+        <h3>All Users</h3>
         <ul>
             <% for(user of all_users){ %>
                 <li>

@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-const JWTStratgey = require('passport-jwt').Strategy;
+const JWTStrategy = require('passport-jwt').Strategy;
 const extraxtJWT = require('passport-jwt').ExtractJwt;
 
 const User = require('../models/user');
@@ -10,7 +10,7 @@ let opts = {
     secretOrKey: 'codeial'
 }
 
-passport.use(new JWTStratgey(opts, async function (jwtPaylod, done) {
+passport.use(new JWTStrategy(opts, async function (jwtPaylod, done) {
     try {
 
         let user = await User.findById(jwtPaylod._id);

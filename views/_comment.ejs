@@ -11,14 +11,14 @@
             <%=comment.createdAt%>
         </small>
 
-        <% if(locals.user && locals.user.id==comment.user._id){%>
+        <% if(locals.user && locals.current_user.id==comment.user._id){%>
             <small>
-                <a href="/comments/destroy/<%=comment.id%>" class="button">Delete</a>
+                <a href="/comments/destroy/<%=comment.id%>" >Delete</a>
             </small>
             <%}%>
                 <br>
                 <%=comment.content%>
-                <br>
+                    <br>
                     <small>
                         <%if(locals.user){%>
                             <a class="toggle-like-button" data-likes="<%=comment.likes.length %>"

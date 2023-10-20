@@ -14,10 +14,15 @@ main {
     height: 100%;
     display: flex;
 
-    #quick-links {
+    #quick-links-and-all-users {
         // position: fixed;
         width: 25%;
-        padding: 10px
+
+        padding: 10px;
+
+        #quick-links {
+            min-height: 30vh;
+        }
     }
 
     #feed-posts {
@@ -31,7 +36,14 @@ main {
         }
     }
 
-    #user-friends {
+    #all-users {
+        width: 100%;
+        padding: 10px;
+        // border-left: 1px solid lightgray;
+        height: 100%;
+    }
+
+    #friends-container {
         width: 25%;
         padding: 10px;
         // border-left: 1px solid lightgray;

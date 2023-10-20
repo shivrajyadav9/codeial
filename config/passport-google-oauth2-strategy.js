@@ -1,11 +1,11 @@
 const passport = require('passport');
-const googleStratgey = require('passport-google-oauth').OAuth2Strategy;
+const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
 
 const User = require('../models/user');
 
 //tell passport to use a new stratgey gor google log in
-passport.use(new googleStratgey({
+passport.use(new googleStrategy({
     clientID: '91239784649-o73tj6jauue87rloqidisn5itq0nmhg9.apps.googleusercontent.com',
     clientSecret: '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',
     callbackURL: 'http://localhost:8000/users/auth/google/callback'
