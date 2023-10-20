@@ -11,7 +11,7 @@ main {
   height: 100%;
   display: flex; }
   #home-container #quick-links-and-all-users {
-    width: 23%;
+    width: 22%;
     flex-shrink: 1;
     padding: 10px; }
     #home-container #quick-links-and-all-users #left-flex {

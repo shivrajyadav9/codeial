@@ -7,4 +7,8 @@
   #sign-up-form-container input {
     margin: 15px auto;
     display: block;
-    width: 100%; }
+    width: 100%;
+    padding: 10px; }
+  #sign-up-form-container #sign-up-submit {
+    width: 70%;
+    margin: 0 auto; }

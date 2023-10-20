@@ -1,14 +1,21 @@
-#sign-up-form-container{
+#sign-up-form-container {
     text-align: center;
-    width:25%;
-    margin:8% auto;
-    h1{
+    width: 25%;
+    margin: 8% auto;
+
+    h1 {
         margin-bottom: 15%;
     }
-    input{
-        margin:15px auto;
+
+    input {
+        margin: 15px auto;
         display: block;
-        width:100%;
-        // margin:10px;
+        width: 100%;
+        padding:10px;
+    }
+
+    #sign-up-submit {
+        width: 70%;
+        margin: 0 auto;
     }
 }
