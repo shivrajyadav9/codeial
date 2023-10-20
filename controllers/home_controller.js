@@ -47,8 +47,7 @@ module.exports.home = async function (req, res) {
             title: 'Codeial | Home',
             posts: posts,
             all_users: users,
-            user_friends:friends,
-            current_user:req.user
+            user_friends:friends
         });
 
     } catch (err) {
