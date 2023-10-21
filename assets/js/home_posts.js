@@ -52,6 +52,14 @@
                 success: function (data) {
                     console.log(data.message);
                     $(`#post-${data.data.post_id}`).remove();
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post deleted!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+
+                    }).show();
                 },
                 error: function (error) {
                     console.log('ERROR: ' + error.responseText);

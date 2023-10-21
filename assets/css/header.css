@@ -4,9 +4,10 @@ body {
 
 #nav-bar {
   width: 100%;
-  background-color: #9f25b4;
+  background-color: #cf42de;
   position: fixed;
   top: 0;
+  border-bottom-left-radius: -50px;
   padding: 10px;
   display: flex; }
   #nav-bar a {
