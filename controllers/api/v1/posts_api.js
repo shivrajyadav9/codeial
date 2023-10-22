@@ -1,7 +1,7 @@
-const Post =require('../../../models/post');
-const Comment=require('../../../models/comment');
+import Post from '../../../models/post.js';
+import Comment from '../../../models/comment.js';
 
-module.exports.index= async function(req,res){
+let index= async function(req,res){
 
     let posts = await Post.find({})
     .sort('-createdAt')
@@ -18,7 +18,7 @@ module.exports.index= async function(req,res){
     })
 }
 
-module.exports.destroy = async function (req, res) {
+let destroy = async function (req, res) {
     try {
         let post = await Post.findById(req.params.id)
         //.id means converting the object id into string
@@ -54,3 +54,6 @@ module.exports.destroy = async function (req, res) {
         })
     }
 }
+
+let postsApi={index,destroy};
+export default postsApi;

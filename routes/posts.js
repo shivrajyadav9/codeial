@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const passport=require('passport');
+import passport from 'passport';
 
-const postsController=require('../controllers/posts_controller');
+import postsController from '../controllers/posts_controller.js';
 
 router.post('/create',passport.checkAuthentication,postsController.create);
 router.get('/destroy/:id',passport.checkAuthentication,postsController.destroy);
 
-module.exports=router;
+export default router;

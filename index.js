@@ -1,30 +1,36 @@
-const express = require('express');
-const env = require('./config/environment');
-const logger=require('morgan');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import env from './config/environment.js';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
 const app = express();
 const port = 8000;
-const expressLayouts = require('express-ejs-layouts');
-const db = require('./config/mongoose');
+import expressLayouts from 'express-ejs-layouts';
+import db from './config/mongoose.js';
 
 //used for session cookie
-const session = require('express-session');
-const passport = require('passport');
-const passportJWT = require('./config/passport-jwt-strategy');
-const passportGoogle = require('./config/passport-google-oauth2-strategy');
-const passportLocal = require('./config/passport-local-strategy');
+import session from 'express-session';
+import passport from 'passport';
+import passportJWT from './config/passport-jwt-strategy.js';
+import passportGoogle from './config/passport-google-oauth2-strategy.js';
+import passportLocal from './config/passport-local-strategy.js';
 
-const MongoStore = require('connect-mongo');
-const sassMiddleware = require('node-sass-middleware');
-const flash = require('connect-flash');
-const customMware = require('./config/middleware');
+import MongoStore from 'connect-mongo';
+import sassMiddleware from 'node-sass-middleware';
+import flash from 'connect-flash';
+import customMware from './config/middleware.js';
 
 //setup the chat server to be used with socket.io
-const chatServer = require('http').Server(app);
-const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+import chatserver from 'http';
+const chatServer = chatserver.Server(app);
+import chatSockets from './config/chat_sockets.js'
+const chatSocket = chatSockets.chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is listning on port 5000');
-const path = require('path');
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 if (env.name == 'development') {
@@ -46,7 +52,7 @@ app.use(express.static(env.asset_path));
 //make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-app.use(logger(env.morgan.mode,env.morgan.options));
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 app.use(expressLayouts);
 
@@ -90,9 +96,10 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 app.use(flash());
-app.use(customMware.setFlash);
+// app.use(customMware());
 
-app.use('/', require('./routes/index'));
+import indexRouter from './routes/index.js';
+app.use('/', indexRouter);
 
 app.listen(port, function (err) {
     if (err) {
@@ -100,8 +107,3 @@ app.listen(port, function (err) {
     }
     console.log(`Server is up and running on port ${port}`);
 })
-
-var gulp = require('gulp');
-gulp.task('default', function () { 
-    console.log('Hello Gulp!') 
-});

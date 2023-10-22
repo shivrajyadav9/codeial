@@ -1,7 +1,7 @@
-const nodeMailer = require('../config/nodemailer');
-const ResetPasswordToken = require('../models/reset_password_token');
+import nodeMailer from '../config/nodemailer.js';
+import ResetPasswordToken from '../models/reset_password_token.js';
 
-exports.resetPassword=(resetPasswordToken)=>{
+let resetPassword=(resetPasswordToken)=>{
     let htmlString=nodeMailer.renderTemplate({resetPasswordToken:resetPasswordToken},'users/reset_password.ejs');
     
     nodeMailer.transporter.sendMail({
@@ -15,3 +15,5 @@ exports.resetPassword=(resetPasswordToken)=>{
         return;
     })
 }
+let usersMailer={resetPassword};
+export default usersMailer;

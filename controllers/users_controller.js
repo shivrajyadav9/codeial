@@ -1,13 +1,13 @@
-const User = require('../models/user');
-const Post = require('../models/post');
-const Friendship=require('../models/friendship');
-const fs = require('fs');
-const path = require('path');
-const ResetPasswordToken = require('../models/reset_password_token');
-const crypto = require('crypto');
-const usersMailer = require('../mailers/users_mailer');
+import User from '../models/user.js';
+import Post from '../models/post.js';
+import Friendship from '../models/friendship.js';
+import fs from 'fs';
+import path from 'path';
+import ResetPasswordToken from '../models/reset_password_token.js';
+import crypto from 'crypto';
+import usersMailer from '../mailers/users_mailer.js';
 
-module.exports.profile = async function (req, res) {
+let profile = async function (req, res) {
     // return res.end('<h1>User Profile</h1>');
     try {
         const user = await User.findById(req.params.id).populate('friendships');
@@ -22,15 +22,15 @@ module.exports.profile = async function (req, res) {
                 }
             });
 
-            let checkFriendship1=await Friendship.findOne({from_user:req.params.id,to_user:req.user.id});
-            let checkFriendship2=await Friendship.findOne({from_user:req.user.id,to_user:req.params.id});
+        let checkFriendship1 = await Friendship.findOne({ from_user: req.params.id, to_user: req.user.id });
+        let checkFriendship2 = await Friendship.findOne({ from_user: req.user.id, to_user: req.params.id });
 
         return res.render('user_profile', {
             title: `${user.name} Profile`,
             profile_user: user,
             all_users: users,
             user_posts: user_posts,
-            isFriend:checkFriendship1||checkFriendship2
+            isFriend: checkFriendship1 || checkFriendship2
         });
     } catch (err) {
         console.log('Error', err);
@@ -38,7 +38,7 @@ module.exports.profile = async function (req, res) {
     }
 }
 
-module.exports.update = async function (req, res) {
+let update = async function (req, res) {
     try {
         if (req.user.id == req.params.id) {
             let user = await User.findById(req.params.id);
@@ -78,7 +78,7 @@ module.exports.update = async function (req, res) {
 }
 
 
-module.exports.signIn = function (req, res) {
+let signIn = function (req, res) {
     if (req.isAuthenticated()) {
         return res.redirect(`/users/profile/${req.user.id}`);
     }
@@ -88,13 +88,13 @@ module.exports.signIn = function (req, res) {
     });
 }
 
-module.exports.forgotPassword = function (req, res) {
+let forgotPassword = function (req, res) {
     return res.render('forgot_password', {
         title: 'Forgot Password?'
     });
 }
 
-module.exports.createForgotPasswordToken = async function (req, res) {
+let createForgotPasswordToken = async function (req, res) {
     try {
         let user = await User.findOne({ email: req.body.email });
         // console.log(req.body);
@@ -124,7 +124,7 @@ module.exports.createForgotPasswordToken = async function (req, res) {
     }
 };
 
-module.exports.resetPassword = function (req, res) {
+let resetPassword = function (req, res) {
     res.cookie('resetPasswordToken', req.params.token);
     return res.render('new_password', {
         title: 'New Password',
@@ -132,12 +132,12 @@ module.exports.resetPassword = function (req, res) {
     })
 }
 
-module.exports.newPassword = async function (req, res) {
+let newPassword = async function (req, res) {
     try {
         let token = await ResetPasswordToken.findOne({ token: req.cookies.resetPasswordToken });
-        if ( token.isValid && req.body.password === req.body.confirm_password) {
+        if (token.isValid && req.body.password === req.body.confirm_password) {
             await User.findByIdAndUpdate({ _id: token.user }, { password: req.body.password });
-            await ResetPasswordToken.findOneAndUpdate({token: req.cookies.resetPasswordToken},{isValid:false});
+            await ResetPasswordToken.findOneAndUpdate({ token: req.cookies.resetPasswordToken }, { isValid: false });
 
             res.clearCookie('resetPasswordToken');
             return res.redirect('/users/sign-in');
@@ -149,7 +149,7 @@ module.exports.newPassword = async function (req, res) {
 }
 
 
-module.exports.signUp = function (req, res) {
+let signUp = function (req, res) {
     if (req.isAuthenticated()) {
         return res.redirect(`/users/profile/${req.user.id}`);
     }
@@ -158,7 +158,7 @@ module.exports.signUp = function (req, res) {
     });
 }
 //get the sign up data
-module.exports.create = async function (req, res) {
+let create = async function (req, res) {
     if (req.body.password != req.body.confirm_password) {
         req.flash('error', 'Password does not match');
         return res.redirect('back');
@@ -181,12 +181,12 @@ module.exports.create = async function (req, res) {
 }
 
 //sign in and create a session for the user
-module.exports.createSession = function (req, res) {
+let createSession = function (req, res) {
     req.flash('success', 'Logged in successfully!!');
     return res.redirect('/');
 }
 
-module.exports.destroySession = function (req, res) {
+let destroySession = function (req, res) {
     req.logOut((err) => {
         if (err) {
             req.flash('error', 'Could not log out');
@@ -199,3 +199,17 @@ module.exports.destroySession = function (req, res) {
     });
 
 }
+let usersController = {
+    profile,
+    update,
+    signIn,
+    forgotPassword,
+    createForgotPasswordToken,
+    resetPassword,
+    newPassword,
+    signUp,
+    create,
+    createSession,
+    destroySession
+}
+export default usersController;

@@ -1,5 +1,5 @@
-const kue=require('kue');
+import { createQueue } from 'kue';
 
-const queue=kue.createQueue();
+const queue = createQueue();
 
-module.exports=queue;
+export default queue;

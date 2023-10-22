@@ -1,8 +1,8 @@
-const Like = require('../models/like');
-const Comment = require('../models/comment');
-const Post = require('../models/post');
+import Like from '../models/like.js';
+import Comment from '../models/comment.js';
+import Post from '../models/post.js';
 
-module.exports.toggleLike = async function (req, res) {
+let toggleLike = async function (req, res) {
     try {
         //likes/toggle/?id=abcdef&type=Post
         let likable;
@@ -61,4 +61,7 @@ module.exports.toggleLike = async function (req, res) {
         })
     }
 }
+
+let likesController = {toggleLike};
+export default likesController;
 

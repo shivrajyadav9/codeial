@@ -1,10 +1,9 @@
 //module.exports.actionName=function(req,res){};
-const Post = require('../models/post');
-const User = require('../models/user');
+import Post from '../models/post.js';
+import User from '../models/user.js';
 
 // using Async Await
-
-module.exports.home = async function (req, res) {
+ let home = async function (req, res) {
     try {
         let posts = await Post.find({})
             .sort('-createdAt')
@@ -59,6 +58,8 @@ module.exports.home = async function (req, res) {
         return;
     }
 }
+
+export default home;
 //Using Promises
 
 // module.exports.home = function (req, res) {

@@ -1,8 +1,9 @@
-const passport = require('passport');
+import passport from 'passport';
 
-const LocalStrategy = require('passport-local').Strategy;
+import passportLocal from 'passport-local';
+const LocalStrategy = passportLocal.Strategy;
 
-const User = require('../models/user');
+import User from '../models/user.js';
 
 //authentication using passport
 passport.use(new LocalStrategy({
@@ -72,4 +73,4 @@ passport.setAuthenticatedUser = function (req, res, next) {
     next();
 }
 
-module.exports = passport;
+export default passport;

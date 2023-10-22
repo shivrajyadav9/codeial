@@ -1,9 +1,9 @@
-const User = require('../../../models/user');
-const jwt = require('jsonwebtoken');
-const env = require('../../../config/environment');
+import User from '../../../models/user.js';
+import jwt from 'jsonwebtoken';
+import env from '../../../config/environment.js';
 
 
-module.exports.createSession = async function (req, res) {
+let createSession = async function (req, res) {
     try {
         let user = await User.findOne({ email: req.body.email });
 
@@ -26,3 +26,6 @@ module.exports.createSession = async function (req, res) {
         })
     }
 }
+
+let usersApi={createSession};
+export default usersApi;

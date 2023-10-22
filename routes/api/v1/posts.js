@@ -1,13 +1,13 @@
-const express=require('express');
-const passport=require('passport');
+import express from 'express';
+import passport from 'passport';
 
-const router=express.Router();
+const  router=express.Router();
 
-const postsApi=require('../../../controllers/api/v1/posts_api');
+import postsApi from  '../../../controllers/api/v1/posts_api.js';
 
 router.get('/',postsApi.index);
 
 router.delete('/:id',passport.authenticate('jwt',{session:false}),postsApi.destroy);// session false to prevent session cookies generated
 
 
-module.exports=router;
+export default router;

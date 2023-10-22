@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const multer = require('multer');
-const path = require('path');
+import mongoose from 'mongoose';
+import multer from 'multer';
+import path from 'path';
 const AVATAR_PATH = path.join('/uploads/users/avatars');
 
 
@@ -47,4 +47,4 @@ userSchema.statics.avatarPath = AVATAR_PATH
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+export default User;

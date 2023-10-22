@@ -1,17 +1,22 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 console.log('router added successfully');
 
-const homeController = require('../controllers/home_controller');
+import homeController from '../controllers/home_controller.js';
 
-router.get('/', homeController.home);
-router.use('/users', require('./users'));
+router.get('/', homeController);
+import users from'./users.js';
+router.use('/users', users);
+import posts from './posts.js';
+router.use('/posts', posts);
+import comments from './comments.js';
+router.use('/comments',comments);
+import likes from './likes.js';
+router.use('/likes',likes);
+import friendships from './friendships.js';
+router.use('/friendships',friendships);
 
-router.use('/posts',require('./posts'));
-router.use('/comments',require('./comments'));
-router.use('/likes',require('./likes'));
-router.use('/friendships',require('./friendships'));
+import api from './api/index.js';
+router.use('/api', api);
 
-router.use('/api',require('./api'));
-
-module.exports = router;
+export default router;

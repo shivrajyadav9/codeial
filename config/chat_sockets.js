@@ -1,11 +1,12 @@
+import {Server} from 'socket.io';
 
-
-module.exports.chatSockets = function (socketServer) {
-    let io = require('socket.io')(socketServer, {
-        cors: {
-            origin: '*',
-        }
-    });
+let chatSockets =function (socketServer) {
+    let io =new  Server(socketServer);
+    // socketIO(socketServer, {
+    //     cors: {
+    //         origin: '*',
+    //     }
+    // });
 
     io.sockets.on('connection', function (socket) {
         console.log('new socket connection received', socket.id);
@@ -29,3 +30,5 @@ module.exports.chatSockets = function (socketServer) {
         })
     })
 }
+
+export default {chatSockets};

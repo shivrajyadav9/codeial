@@ -1,9 +1,12 @@
-const express=require('express');
+import express from 'express';
 
 const router=express.Router();
 
-router.use('/posts',require('./posts'));
-router.use('/users',require('./users'));
+import posts from './posts.js';
+router.use('/posts', posts);
+
+import users from './users.js';
+router.use('/users',users);
 
 
-module.exports=router;
+export default router;

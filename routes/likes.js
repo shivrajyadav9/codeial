@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const likesController=require('../controllers/likes_controller');
+import likesController from '../controllers/likes_controller.js';
 
 router.post('/toggle',likesController.toggleLike);
 
-module.exports=router;
+export default router;

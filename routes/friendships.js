@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const friendshipsController=require('../controllers/friendships_controller');
+import friendshipsController from '../controllers/friendships_controller.js';
 
 router.get('/toggle',friendshipsController.toggle);
 
-module.exports=router;
+export default router;

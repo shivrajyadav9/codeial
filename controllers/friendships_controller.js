@@ -1,8 +1,8 @@
-const User = require('../models/user');
-const Friendship = require('../models/friendship');
+import User from '../models/user.js';
+import Friendship from '../models/friendship.js';
 
 
-module.exports.toggle = async function (req, res) {
+let toggle = async function (req, res) {
 
     try {
 
@@ -43,3 +43,6 @@ module.exports.toggle = async function (req, res) {
     return res.redirect('back');
 
 }
+
+let friendshipController={toggle};
+export default friendshipController;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import  mongoose from 'mongoose';
 
 
 
@@ -19,4 +19,4 @@ const resetPasswordTokenSchema = new mongoose.Schema({
 
 const ResetPasswordToken=mongoose.model('ResetPasswordToken',resetPasswordTokenSchema);
 
-module.exports=ResetPasswordToken;
+export default ResetPasswordToken;

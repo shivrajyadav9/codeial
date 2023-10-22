@@ -1,9 +1,10 @@
-const passport = require('passport');
-const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const crypto = require('crypto');
-const env = require('./environment');
+import passport from 'passport';
+import passportGoogle from 'passport-google-oauth'
+const googleStrategy = passportGoogle.OAuth2Strategy;
+import crypto from 'crypto';
+import env from './environment.js';
 
-const User = require('../models/user');
+import User from '../models/user.js';
 
 //tell passport to use a new stratgey gor google log in
 passport.use(new googleStrategy({
@@ -46,4 +47,4 @@ passport.use(new googleStrategy({
     }
 ));
 
-module.exports = passport;
+export default passport;

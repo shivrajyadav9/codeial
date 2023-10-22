@@ -1,6 +1,10 @@
-const fs=require('fs');
-const rfs=require('rotating-file-stream');
-const path=require('path');
+import fs from 'fs';
+import rfs from 'rotating-file-stream';
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const logDirectory=path.join(__dirname,'../production_logs');
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -63,4 +67,4 @@ const production = {
 }
 
 
-module.exports = eval(process.env.CODEIAL_ENVIRONMENT == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT));
+export default eval(process.env.CODEIAL_ENVIRONMENT == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT));

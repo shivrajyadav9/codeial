@@ -1,8 +1,8 @@
-const Post = require('../models/post');
-const Comment = require('../models/comment');
-const Like = require('../models/like');
+import Post from '../models/post.js';
+import Comment from '../models/comment.js';
+import Like from '../models/like.js';
 
-module.exports.create = async function (req, res) {
+let create = async function (req, res) {
     try {
         let newPost = await Post.create({
             content: req.body.content,
@@ -50,7 +50,7 @@ module.exports.create = async function (req, res) {
     }
 }
 
-module.exports.destroy = async function (req, res) {
+let destroy = async function (req, res) {
     try {
         let post = await Post.findById(req.params.id)
         //.id means converting the object id into string
@@ -83,3 +83,5 @@ module.exports.destroy = async function (req, res) {
         return res.redirect('back');
     }
 }
+let postsController = { create, destroy };
+export default  postsController;

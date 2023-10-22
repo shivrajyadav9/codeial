@@ -1,13 +1,14 @@
-const Comment = require('../models/comment');
-const Post = require('../models/post');
-const Like=require('../models/like');
-const commentsMailer = require('../mailers/comments_mailer');
+import Comment from '../models/comment.js';
+import Post from '../models/post.js';
+import Like from '../models/like.js';
+import commentsMailer from '../mailers/comments_mailer.js';
 
-const commentEmailWorker = require('../workers/comment_email_worker');
-const queue = require('../config/kue');
+// import commentEmailWorker from '../workers/comment_email_worker.js';
+import kue from '../config/kue.js'
+const queue = kue.default;
 
 
-module.exports.create = async function (req, res) {
+let create = async function (req, res) {
     try {
         const post = await Post.findById(req.body.post)
         let comment = await Comment.create({
@@ -41,7 +42,7 @@ module.exports.create = async function (req, res) {
     }
 }
 
-module.exports.destroy = async function (req, res) {
+let destroy = async function (req, res) {
     try {
         let comment = await Comment.findById(req.params.id)
 
@@ -51,7 +52,7 @@ module.exports.destroy = async function (req, res) {
             await Comment.findByIdAndDelete(req.params.id);
             await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
 
-            await Like.deleteMany({likable:comment._id,onModel:'Comment'});
+            await Like.deleteMany({ likable: comment._id, onModel: 'Comment' });
 
             req.flash('success', 'Comment deleted successfully!!');
             return res.redirect('back');
@@ -65,3 +66,6 @@ module.exports.destroy = async function (req, res) {
         return;
     }
 }
+
+let commentsController={ create, destroy };
+export default commentsController;
