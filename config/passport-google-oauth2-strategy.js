@@ -1,14 +1,15 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
+const env = require('./environment');
 
 const User = require('../models/user');
 
 //tell passport to use a new stratgey gor google log in
 passport.use(new googleStrategy({
-    clientID: '91239784649-o73tj6jauue87rloqidisn5itq0nmhg9.apps.googleusercontent.com',
-    clientSecret: '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',
-    callbackURL: 'http://localhost:8000/users/auth/google/callback'
+    clientID: env.google_client_id,
+    clientSecret: env.google_client_secret,
+    callbackURL: env.google_callback_url
 },
     function (accessToken, refreshToken, profile, done) {
 
@@ -19,7 +20,7 @@ passport.use(new googleStrategy({
                 return;
             })
             .then((user) => {
-                console.log(accessToken,refreshToken);
+                console.log(accessToken, refreshToken);
                 console.log(profile);
 
                 //if found set this user as req.user
@@ -34,15 +35,15 @@ passport.use(new googleStrategy({
                         email: profile.emails[0].value,
                         password: crypto.randomBytes(20).toString('hex')
                     })
-                    .catch((err)=>{
-                        console.log('Error in creating user google stratgey passport:', err);
-                        return;
-                    }).then((user)=>{
-                        return done(null,user);
-                    })
+                        .catch((err) => {
+                            console.log('Error in creating user google stratgey passport:', err);
+                            return;
+                        }).then((user) => {
+                            return done(null, user);
+                        })
                 }
             })
     }
 ));
 
-module.exports=passport;
+module.exports = passport;

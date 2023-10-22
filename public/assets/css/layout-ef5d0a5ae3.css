@@ -1,0 +1,43 @@
+body {
+  margin: 0 0 0 10px;
+  background-color: #e8e8e8;
+  font-family: sans-serif; }
+  body .post-content {
+    color: #434342; }
+  body .comment-content {
+    color: #434342; }
+
+a {
+  color: #810bdc;
+  text-decoration: none; }
+
+input {
+  background-color: #e8e8e8;
+  border: 1px solid darkgray;
+  border-radius: 30px;
+  padding: 5px;
+  color: #6d6a62; }
+
+textarea {
+  background-color: #e8e8e8;
+  border: 1px solid darkgray;
+  border-radius: 50px;
+  padding: 5px 20px;
+  width: 80%; }
+
+#user-info input {
+  display: block; }
+
+#user-info input.button {
+  border: 1px solid darkgray;
+  border-radius: 50px;
+  padding: 10px 20px;
+  background-color: #e43cf7;
+  color: aliceblue; }
+
+form input.button {
+  border: 1px solid darkgray;
+  border-radius: 50px;
+  padding: 5px 20px;
+  background-color: #e43cf7;
+  color: aliceblue; }

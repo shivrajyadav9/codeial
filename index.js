@@ -1,4 +1,6 @@
 const express = require('express');
+const env = require('./config/environment');
+const logger=require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -8,37 +10,43 @@ const db = require('./config/mongoose');
 //used for session cookie
 const session = require('express-session');
 const passport = require('passport');
-const passportJWT =require('./config/passport-jwt-strategy');
-const passportGoogle=require('./config/passport-google-oauth2-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const passportLocal = require('./config/passport-local-strategy');
 
 const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
-const flash=require('connect-flash');
-const customMware=require('./config/middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 //setup the chat server to be used with socket.io
-const chatServer=require('http').Server(app);
-const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is listning on port 5000');
+const path = require('path');
 
-app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
-    debug: true,
-    outputStyle: 'extended',
-    prefix: '/css'
-}));
+
+if (env.name == 'development') {
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        debug: true,
+        outputStyle: 'extended',
+        prefix: '/css'
+    }));
+}
 
 app.use(express.urlencoded());
 
 app.use(cookieParser());
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 //make the uploads path available to the browser
-app.use('/uploads',express.static(__dirname+'/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode,env.morgan.options));
 
 app.use(expressLayouts);
 
@@ -59,7 +67,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',//name of the key
     //TODO change the secret before deployement in production mode
-    secret: 'blahSomething',//key to generate encripted kays
+    secret: env.session_cookie_key,//key to generate encripted kays
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -92,3 +100,8 @@ app.listen(port, function (err) {
     }
     console.log(`Server is up and running on port ${port}`);
 })
+
+var gulp = require('gulp');
+gulp.task('default', function () { 
+    console.log('Hello Gulp!') 
+});
