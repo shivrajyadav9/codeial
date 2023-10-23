@@ -3,6 +3,6 @@ const router = express.Router();
 
 import likesController from '../controllers/likes_controller.js';
 
-router.post('/toggle',likesController.toggleLike);
+router.get('/toggle',likesController.toggleLike);
 
 export default router;

@@ -1,5 +1,4 @@
-import kue from '../config/kue.js';
-queue = kue.default;
+import queue from '../config/kue.js';
 import commentsMailer from '../mailers/comments_mailer.js';
 
 //process a queue named 'emails' with 
@@ -9,4 +8,6 @@ queue.process('emails', function (job, done) {
     commentsMailer.newComment(job.data);
     done();
 })
+
+export default queue;
 

@@ -2,6 +2,7 @@ import nodeMailer from '../config/nodemailer.js';
 
 //this is another way of exporting a method
 let newComment = (comment) => {
+    
     let htmlString = nodeMailer.renderTemplate({ comment: comment }, '/comments/new_comment.ejs');
 
     nodeMailer.transporter.sendMail({

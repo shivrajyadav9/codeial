@@ -1,7 +1,11 @@
-import {Server} from 'socket.io';
+import { Server } from 'socket.io';
 
-let chatSockets =function (socketServer) {
-    let io =new  Server(socketServer);
+let chatSockets = function (socketServer) {
+    let io = new Server(socketServer, {
+        cors: {
+            origin: '*',
+        }
+    });
     // socketIO(socketServer, {
     //     cors: {
     //         origin: '*',
@@ -22,13 +26,13 @@ let chatSockets =function (socketServer) {
             //the same name and add the user
             socket.join(data.chatroom);
 
-            io.in(data.chatroom).emit('user_joined',data);
+            io.in(data.chatroom).emit('user_joined', data);
         });
 
-        socket.on('send_message',function(data){
-            io.in(data.chatroom).emit('receive_message',data);
+        socket.on('send_message', function (data) {
+            io.in(data.chatroom).emit('receive_message', data);
         })
     })
 }
 
-export default {chatSockets};
+export default { chatSockets };

@@ -3,9 +3,8 @@ import Post from '../models/post.js';
 import Like from '../models/like.js';
 import commentsMailer from '../mailers/comments_mailer.js';
 
-// import commentEmailWorker from '../workers/comment_email_worker.js';
-import kue from '../config/kue.js'
-const queue = kue.default;
+import commentEmailWorker from '../workers/comment_email_worker.js';
+import queue from '../config/kue.js'
 
 
 let create = async function (req, res) {
@@ -22,7 +21,7 @@ let create = async function (req, res) {
 
         comment = await comment.populate('user', 'name email')//.execPopulate();
 
-        //add a job to queue named emails or create a queue named emails and add a job to it
+        // add a job to queue named emails or create a queue named emails and add a job to it
         let job = queue.create('emails', comment).save(function (err) {
             if (err) {
                 console.log('error in sending to the queue', err);
@@ -31,13 +30,13 @@ let create = async function (req, res) {
             console.log('job enqueued', job.id);
         })
 
-        // commentsMailer.newComment(comment);
+        //  commentsMailer.newComment(comment);
 
         req.flash('success', 'Commented added');
         res.redirect('/');
     } catch (err) {
         req.flash('error', err);
-        // console.log('Error: ', err);
+        console.log('Error: ', err);
         return;
     }
 }

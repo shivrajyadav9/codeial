@@ -13,7 +13,7 @@ class ToggleLike {
 
             //new way of writing ajax similar to promises
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: $(self).attr('href')
             })
                 .done(function(data){

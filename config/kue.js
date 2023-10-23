@@ -1,5 +1,4 @@
-import { createQueue } from 'kue';
+import kue from 'kue';
 
-const queue = createQueue();
-
+const queue = kue.createQueue();
 export default queue;

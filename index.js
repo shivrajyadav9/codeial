@@ -1,8 +1,11 @@
 import express from 'express';
 import env from './config/environment.js';
 import logger from 'morgan';
+import viewHelpers from './config/view-helpers.js';
+
 import cookieParser from 'cookie-parser';
 const app = express();
+viewHelpers.helper(app);
 const port = 8000;
 import expressLayouts from 'express-ejs-layouts';
 import db from './config/mongoose.js';
@@ -46,7 +49,6 @@ if (env.name == 'development') {
 app.use(express.urlencoded());
 
 app.use(cookieParser());
-
 app.use(express.static(env.asset_path));
 
 //make the uploads path available to the browser

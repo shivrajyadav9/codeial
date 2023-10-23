@@ -1,24 +1,19 @@
-import  pkg from 'gulp';
-const { src, dest, series } = pkg;
+import pkg from 'gulp';
+const { src, dest, series, gulp } = pkg;
 
 import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 const sass = gulpSass(dartSass)
-//const sass=require('gulp-sass')(require('sass'));
 
- import cssnano from 'gulp-cssnano';
-//const cssnano=require('gulp-cssnano');
- import rev from 'gulp-rev';
-//const rev=require('gulp-rev');
+import cssnano from 'gulp-cssnano';
+import rev from 'gulp-rev';
 
 import gulpUglify from 'gulp-uglify-es';
-const uglify = gulpUglify.default;
-//const uglify=require('gulp-uglify-es').default;
+ const uglify = gulpUglify.default;
+import terser from 'gulp-terser';
 
-import  imagemin from 'gulp-imagemin';
-// const imagemin=require('gulp-imagemin');
- import * as del from 'del';
-// const del=require('del');
+import imagemin from 'gulp-imagemin';
+import * as del from 'del';
 
 
 function css(done) {
@@ -40,9 +35,9 @@ function css(done) {
     done();
 };
 
-function js(done) {
+function js() {
     console.log('minifying js..');
-    src('./assets/**/*.js')
+    return src('./assets/**/*.js')
         .pipe(uglify())
         .pipe(rev())
         .pipe(dest('./public/assets'))
@@ -51,12 +46,12 @@ function js(done) {
             merge: true
         }))
         .pipe(dest('./public/assets'));
-    done();
+    // done();
 };
 
 function images(done) {
     console.log('minifying images..');
-    src('./assets/**/*.+(png|jpg|gif|svg|jpeg)')//regex regular expression
+        src('./assets/**/*')//regex regular expression .+(png|jpg|gif|svg|jpeg)
         .pipe(imagemin())
         .pipe(rev())
         .pipe(dest('./public/assets'))
@@ -70,12 +65,11 @@ function images(done) {
 
 
 //empty the public assets directory
-function cleanAssets (done){
+function cleanAssets(done) {
     del.deleteSync('./public/assets');
     done();
 }
 
-let build=series(cleanAssets,css,js);
-
-export {build};
+let build = series(cleanAssets, css, js);
+export { build }
 // exports.build=build;

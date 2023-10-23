@@ -120,7 +120,7 @@ let createForgotPasswordToken = async function (req, res) {
         }
 
     } catch (err) {
-        console.log('Error in creating forgot password token ');
+        console.log('Error in creating forgot password token ' ,err);
     }
 };
 

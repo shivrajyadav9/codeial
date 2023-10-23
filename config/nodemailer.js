@@ -3,9 +3,14 @@ import ejs from 'ejs';
 import path from 'path';
 import env from './environment.js';
 
-export const  transporter = nodemailer.createTransport(env.smtp);
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-export const renderTemplate = (data, relativePath) => {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+let  transporter = nodemailer.createTransport(env.smtp);
+
+let renderTemplate = (data, relativePath) => {
     let mailHTML;
 
     ejs.renderFile(
@@ -22,5 +27,5 @@ export const renderTemplate = (data, relativePath) => {
     )
     return mailHTML;
 }
-
-export default transporter;
+let nodeMailer={transporter,renderTemplate};
+export default nodeMailer;

@@ -1,6 +1,6 @@
 <main>
-    <link rel="stylesheet" href="/css/home.css">
-    <link rel="icon" href="../assets/images/hashtag-solid.svg">
+    <link rel="stylesheet" href="<%=assetPath('css/home.css')%>">
+    <!-- <link rel="icon" href="<%=assetPath('images/hashtag-solid.svg')%>"> -->
     <div id="home-container">
 
         <section id="quick-links-and-all-users">
@@ -72,8 +72,8 @@
         <%-include('_chat_box') %>
     </div>
 </main>
-<script src="/js/home_posts.js"></script>
-<script src="/js/toggle_likes.js"></script>
+<script src="<%=assetPath('js/home_posts.js')%>"></script>
+<script src="<%=assetPath('js/toggle_likes.js')%>"></script>
 <script>
     $('.toggle-like-button').each(function () {
         let self = this;
@@ -84,7 +84,7 @@
     integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
-<script src="/js/chat_engine.js">
+<script src="<%=assetPath('js/chat_engine.js')%>">
 </script>
 <% if(locals.user){%>
 <script>
