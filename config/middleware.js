@@ -1,9 +1,9 @@
-export const setFlash =function(req,res,next){
-    res.locals.flash={
+let setFlash = function (req, res, next) {
+    res.locals.flash = {
         'success': req.flash('success'),
-        'error':req.flash('error')
+        'error': req.flash('error')
     }
     next();
 }
-
- export default setFlash;
+let customMware = { setFlash };
+export default customMware;

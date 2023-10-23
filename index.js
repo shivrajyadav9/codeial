@@ -74,7 +74,6 @@ app.set('views', './views');
 //mongostore is used to store the session cookie in the db
 app.use(session({
     name: 'codeial',//name of the key
-    //TODO change the secret before deployement in production mode
     secret: env.session_cookie_key,//key to generate encripted kays
     saveUninitialized: false,
     resave: false,
@@ -98,7 +97,7 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 app.use(flash());
-// app.use(customMware());
+ app.use(customMware.setFlash);
 
 import indexRouter from './routes/index.js';
 app.use('/', indexRouter);
