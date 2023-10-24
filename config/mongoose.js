@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import env from './environment.js';
 
-mongoose.connect(`mongodb://0.0.0.0/${env.db}`);
+mongoose.connect(`mongodb://0.0.0.0:27017/${env.db}`);
 
 const db = mongoose.connection;
 
