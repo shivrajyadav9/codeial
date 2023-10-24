@@ -1,5 +1,5 @@
-import pkg from 'gulp';
-const { src, dest, series, gulp } = pkg;
+import gulp from 'gulp';
+const { src, dest, series } = gulp;
 
 import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
