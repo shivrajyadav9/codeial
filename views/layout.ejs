@@ -6,7 +6,7 @@
         <%=title%>
     </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" />
-    <link rel="icon" href="<%=assetPath('images/favicon.png')%>">
+    <link rel="icon" href="/images/favicon.png">
     <link rel="stylesheet" href="<%=assetPath('css/layout.css')%>">
     <%-style%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
@@ -22,28 +22,28 @@
             <%-include('_footer')%>
 
                 <%-script%>
-                
-                <script>
+
+                    <script>
                     <% if (flash.success && flash.success.length > 0) {%>
-                    new Noty({
-                        theme: 'relax',
-                        text: '<%=flash.success%>',
-                        type: 'success',
-                        layout: 'topRight',
-                        timeout: '1500'
-                    }).show();
+                            new Noty({
+                                theme: 'relax',
+                                text: '<%=flash.success%>',
+                                type: 'success',
+                                layout: 'topRight',
+                                timeout: '1500'
+                            }).show();
                        <%}%>
                        <% if (flash.error && flash.error.length > 0) {%>
-                    new Noty({
-                        theme: 'relax',
-                        text: '<%=flash.error%>',
-                        type: 'error',
-                        layout: 'topRight',
-                        timeout: '1500'
-                    }).show();
+                            new Noty({
+                                theme: 'relax',
+                                text: '<%=flash.error%>',
+                                type: 'error',
+                                layout: 'topRight',
+                                timeout: '1500'
+                            }).show();
                        <%}%>
-            </script>
-                   
+                    </script>
+
 </body>
 
 </html>

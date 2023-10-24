@@ -10,3 +10,7 @@ TODO :-
 
 # File Upload
 1) apply filters on the format size of file uploaded
+
+1) access aws machine from powershell
+ssh -i downloads/codeial-production.pem ubuntu@ec2-34-224-64-126.compute-1.amazonaws.com
+2) install nvm, npm, mongodb, redis,nginx,pm2
