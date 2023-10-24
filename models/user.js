@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
 const AVATAR_PATH = path.join('/uploads/users/avatars');
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 const userSchema = new mongoose.Schema({
