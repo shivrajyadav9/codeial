@@ -66,7 +66,7 @@ function images(done) {
 
 //empty the public assets directory
 function cleanAssets(done) {
-    del.deleteSync('./public/assets');
+    del.deleteSync('./public/');
     done();
 }
 
