@@ -35,9 +35,9 @@ function css(done) {
     done();
 };
 
-function js() {
+function js(done) {
     console.log('minifying js..');
-    return src('./assets/**/*.js')
+     src('./assets/**/*.js')
         .pipe(uglify())
         .pipe(rev())
         .pipe(dest('./public/assets'))
@@ -46,7 +46,7 @@ function js() {
             merge: true
         }))
         .pipe(dest('./public/assets'));
-    // done();
+     done();
 };
 
 function images(done) {
