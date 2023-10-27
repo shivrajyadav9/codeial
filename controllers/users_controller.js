@@ -7,6 +7,11 @@ import ResetPasswordToken from '../models/reset_password_token.js';
 import crypto from 'crypto';
 import usersMailer from '../mailers/users_mailer.js';
 
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 let profile = async function (req, res) {
     // return res.end('<h1>User Profile</h1>');
     try {

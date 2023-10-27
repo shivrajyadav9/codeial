@@ -17,7 +17,8 @@
             <form action="/users/update/<%=profile_user.id %>" enctype="multipart/form-data" method="post">
                 <input type="text" name="name" placeholder="Your Name" value="<%=profile_user.name %>" required>
                 <input type="email" name="email" placeholder="Your Email" value="<%=profile_user.email %>" required>
-                <input type="file" id="input-profile-picture" name="avatar" placeholder="Profile Picture">
+                <input type="file" accept="image/*" id="input-profile-picture" name="avatar"
+                    placeholder="Profile Picture">
                 <input type="submit" class="button" value="Update">
             </form>
 
