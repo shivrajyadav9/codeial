@@ -82,7 +82,7 @@ app.use(session({
     },
     store: MongoStore.create(
         {
-            mongoUrl: 'mongodb://0.0.0.0/codeial_development',
+            mongoUrl: `mongodb+srv://shivraj:mongodbcluster@cluster0.fk9lx9t.mongodb.net/?retryWrites=true&w=majority`,
             autoRemove: 'disabled'
         },
         function (err) {
